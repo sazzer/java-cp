@@ -10,15 +10,29 @@
  ******************************************************************************************************************/
 package uk.co.grahamcox.cpmmo;
 
+import uk.co.grahamcox.cpmmo.network.Server;
+
 /**
  * The main app for the server
  */
 public class MainServerApp implements MainApp {
+    /** The actual network server */
+    private Server server;
+
+    /**
+     * Inject the server to use
+     * @param server the server to use
+     */
+    public void setServer(Server server) {
+        this.server = server;
+    }
+
     /**
      * Start running the main server application
      */
     @Override
     public void run() {
-
+        server.start();
+        server.stop();
     }
 }

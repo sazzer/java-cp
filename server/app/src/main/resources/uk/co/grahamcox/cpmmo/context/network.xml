@@ -4,8 +4,12 @@
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <import resource="network.xml" />
-    <bean class="uk.co.grahamcox.cpmmo.MainServerApp">
-        <property name="server" ref="server" />
+    <bean id="server" class="uk.co.grahamcox.cpmmo.network.Server">
+        <property name="port" value="12345" />
+        <property name="channelInitializer">
+            <bean class="uk.co.grahamcox.cpmmo.network.ServerChannelInitializer">
+                
+            </bean>
+        </property>
     </bean>
 </beans>

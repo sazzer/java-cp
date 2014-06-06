@@ -11,5 +11,11 @@
   <artifactId>cpmmo-server-network</artifactId>
   <packaging>jar</packaging>
   <name>Cyberpunk MMO - Server Networking</name>
+  <dependencies>
+      <dependency>
+          <groupId>io.netty</groupId>
+          <artifactId>netty-all</artifactId>
+      </dependency>
+  </dependencies>
 </project>
 
