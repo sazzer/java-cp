@@ -22,6 +22,10 @@
       <artifactId>cpmmo-server-network</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>jline</groupId>
+      <artifactId>jline</artifactId>
+    </dependency>
   </dependencies>
   <build>
     <plugins>

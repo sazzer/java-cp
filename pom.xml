@@ -93,6 +93,13 @@
           <artifactId>netty-all</artifactId>
           <version>4.0.9.Final</version>
       </dependency>
+      <!-- Misc -->
+      <dependency>
+          <groupId>jline</groupId>
+          <artifactId>jline</artifactId>
+          <version>2.11</version>
+      </dependency>
+
     </dependencies>
   </dependencyManagement>
   <dependencies>
