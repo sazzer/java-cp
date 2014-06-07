@@ -4,7 +4,6 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
@@ -37,6 +36,7 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
     protected void initChannel(SocketChannel socketChannel) throws Exception {
         LOG.info("New connection: {}", socketChannel);
         ServerHandler serverChannelHandler = applicationContext.getBean("serverChannelHandler", ServerHandler.class);
+        socketChannel.pipeline().addLast(new ChunkedMessageDecoder());
         socketChannel.pipeline().addLast(serverChannelHandler);
     }
 }
