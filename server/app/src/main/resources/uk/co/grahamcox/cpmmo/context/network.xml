@@ -8,8 +8,12 @@
         <property name="port" value="12345" />
         <property name="channelInitializer">
             <bean class="uk.co.grahamcox.cpmmo.network.ServerChannelInitializer">
-                
+
             </bean>
         </property>
+    </bean>
+
+    <bean id="serverChannelHandler" class="uk.co.grahamcox.cpmmo.network.ServerHandler" scope="prototype">
+
     </bean>
 </beans>
