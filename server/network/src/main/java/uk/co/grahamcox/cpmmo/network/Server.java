@@ -83,14 +83,12 @@ public class Server {
     public void stop() {
         LOG.info("Stopping the server");
         try {
+            workerGroup.shutdownGracefully();
+            bossGroup.shutdownGracefully();
             channelFuture.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             LOG.error("The server was interrupted", e);
             throw new RuntimeException(e);
-        } finally {
-            workerGroup.shutdownGracefully();
-            bossGroup.shutdownGracefully();
         }
-        LOG.info("Stopped the server");
     }
 }

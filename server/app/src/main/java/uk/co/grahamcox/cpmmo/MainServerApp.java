@@ -65,6 +65,12 @@ public class MainServerApp implements MainApp {
         while (running) {
             try {
                 String line = consoleReader.readLine("> ");
+                if (line != null && !line.isEmpty()) {
+                    String[] parts = line.split(" ");
+                    if ("shutdown".equals(parts[0])) {
+                        running = false;
+                    }
+                }
             } catch (IOException e) {
                 LOG.warn("Error reading from console", e);
             }
