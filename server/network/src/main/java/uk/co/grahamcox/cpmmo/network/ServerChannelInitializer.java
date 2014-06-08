@@ -37,8 +37,11 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
         LOG.info("New connection: {}", socketChannel);
         ServerHandler serverChannelHandler = applicationContext.getBean("serverChannelHandler", ServerHandler.class);
         socketChannel.pipeline().addLast(new ChunkedMessageDecoder());
+        socketChannel.pipeline().addLast(new JsonMessageDecoder());
+
         socketChannel.pipeline().addLast(new JsonMessageEncoder());
         socketChannel.pipeline().addLast(new ChunkedMessageEncoder());
+
         socketChannel.pipeline().addLast(serverChannelHandler);
     }
 }
