@@ -21,7 +21,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         LOG.debug("Received message: {}", msg);
-        ctx.write(msg);
+        ctx.write("Hello");
         ctx.flush();
     }
 }
