@@ -6,24 +6,15 @@
   <parent>
     <groupId>uk.co.grahamcox.cpmmo</groupId>
     <version>1.0-SNAPSHOT</version>
-    <artifactId>cpmmo-server</artifactId>
+    <artifactId>cpmmo</artifactId>
   </parent>
-  <artifactId>cpmmo-server-network</artifactId>
+  <artifactId>cpmmo-network</artifactId>
   <packaging>jar</packaging>
-  <name>Cyberpunk MMO - Server Networking</name>
+  <name>Cyberpunk MMO - Common Networking</name>
   <dependencies>
-      <dependency>
-          <groupId>${project.groupId}</groupId>
-          <artifactId>cpmmo-network</artifactId>
-          <version>${project.version}</version>
-      </dependency>
       <dependency>
           <groupId>io.netty</groupId>
           <artifactId>netty-all</artifactId>
-      </dependency>
-      <dependency>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-context</artifactId>
       </dependency>
   </dependencies>
 </project>
