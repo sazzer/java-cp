@@ -16,7 +16,9 @@ public class ChunkedMessageEncoder extends MessageToByteEncoder<byte[]> {
      */
     @Override
     protected void encode(ChannelHandlerContext ctx, byte[] msg, ByteBuf out) {
-        out.writeInt(msg.length);
-        out.writeBytes(msg);
+        if (msg.length > 0) {
+            out.writeInt(msg.length);
+            out.writeBytes(msg);
+        }
     }
 }

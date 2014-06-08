@@ -43,10 +43,14 @@ public class ChunkedMessageDecoder extends ByteToMessageDecoder {
             }
         } else {
             LOG.debug("Looking for 4 bytes for length");
-            if (readableBytes > 4) {
+            if (readableBytes >= 4) {
                 int len = byteBuf.readInt();
-                bytesExpected = Optional.of(len);
-                LOG.debug("Read length: {}", len);
+                if (len > 0) {
+                    bytesExpected = Optional.of(len);
+                    LOG.debug("Read length: {}", len);
+                } else {
+                    LOG.debug("Read length of 0. Not bothering to decode 0 bytes");
+                }
             }
         }
     }
