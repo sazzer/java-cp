@@ -27,33 +27,26 @@ public class ChunkedMessageDecoder extends ByteToMessageDecoder {
      */
     @Override
     protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf, List<Object> objects) {
-        boolean keepGoing = true;
-        while (keepGoing) {
-            int readableBytes = byteBuf.readableBytes();
-            LOG.debug("Bytes available: {}", readableBytes);
-            
-            if (bytesExpected.isPresent()) {
-                Integer bytesToRead = bytesExpected.get();
-                LOG.debug("Looking for {} bytes of data", bytesToRead);
-                if (readableBytes >= bytesToRead) {
-                    byte[] bytes = new byte[bytesToRead];
-                    // We have a message we can read
-                    byteBuf.readBytes(bytes);
-                    objects.add(bytes);
-                    bytesExpected = Optional.empty();
-                    LOG.debug("Read {} bytes of data", bytesToRead);
-                } else {
-                    keepGoing = false;
-                }
-            } else {
-                LOG.debug("Looking for 4 bytes for length");
-                if (readableBytes > 4) {
-                    int len = byteBuf.readInt();
-                    bytesExpected = Optional.of(len);
-                    LOG.debug("Read length: {}", len);
-                } else {
-                    keepGoing = false;
-                }
+        int readableBytes = byteBuf.readableBytes();
+        LOG.debug("Bytes available: {}", readableBytes);
+
+        if (bytesExpected.isPresent()) {
+            Integer bytesToRead = bytesExpected.get();
+            LOG.debug("Looking for {} bytes of data", bytesToRead);
+            if (readableBytes >= bytesToRead) {
+                byte[] bytes = new byte[bytesToRead];
+                // We have a message we can read
+                byteBuf.readBytes(bytes);
+                objects.add(bytes);
+                bytesExpected = Optional.empty();
+                LOG.debug("Read {} bytes of data", bytesToRead);
+            }
+        } else {
+            LOG.debug("Looking for 4 bytes for length");
+            if (readableBytes > 4) {
+                int len = byteBuf.readInt();
+                bytesExpected = Optional.of(len);
+                LOG.debug("Read length: {}", len);
             }
         }
     }
