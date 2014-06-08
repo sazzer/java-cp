@@ -14,7 +14,7 @@
   <dependencies>
       <dependency>
           <groupId>${project.groupId}</groupId>
-          <artifactId>cpmmo-network</artifactId>
+          <artifactId>cpmmo-network-common</artifactId>
           <version>${project.version}</version>
       </dependency>
   </dependencies>
