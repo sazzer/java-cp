@@ -7,13 +7,24 @@
     <bean id="server" class="uk.co.grahamcox.cpmmo.network.Server">
         <property name="port" value="12345" />
         <property name="channelInitializer">
-            <bean class="uk.co.grahamcox.cpmmo.network.ServerChannelInitializer">
-
+            <bean class="uk.co.grahamcox.cpmmo.network.SpringChannelInitializer">
+                <property name="handlerBeanNames">
+                    <list>
+                        <value>chunkedMessageDecoder</value>
+                        <value>jsonMessageDecoder</value>
+                        <value>jsonMessageEncoder</value>
+                        <value>chunkedMessageEncoder</value>
+                        <value>serverChannelHandler</value>
+                    </list>
+                </property>
             </bean>
         </property>
     </bean>
 
-    <bean id="serverChannelHandler" class="uk.co.grahamcox.cpmmo.network.ServerHandler" scope="prototype">
 
-    </bean>
+    <bean id="chunkedMessageDecoder" class="uk.co.grahamcox.cpmmo.network.ChunkedMessageDecoder" scope="prototype" />
+    <bean id="chunkedMessageEncoder" class="uk.co.grahamcox.cpmmo.network.ChunkedMessageEncoder" scope="prototype" />
+    <bean id="jsonMessageDecoder" class="uk.co.grahamcox.cpmmo.network.JsonMessageDecoder" scope="prototype" />
+    <bean id="jsonMessageEncoder" class="uk.co.grahamcox.cpmmo.network.JsonMessageEncoder" scope="prototype" />
+    <bean id="serverChannelHandler" class="uk.co.grahamcox.cpmmo.network.ServerHandler" scope="prototype" />
 </beans>
