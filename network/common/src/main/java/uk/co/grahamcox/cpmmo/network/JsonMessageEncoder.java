@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
+import java.nio.charset.Charset;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +15,8 @@ import org.slf4j.LoggerFactory;
 public class JsonMessageEncoder extends MessageToByteEncoder<Object> {
     /** The logger to use */
     private static final Logger LOG = LoggerFactory.getLogger(JsonMessageEncoder.class);
+    /** The UTF-8 Charset to encode as */
+    public static final Charset UTF8_CHARSET = Charset.forName("UTF-8");
     /** The object mapper to use */
     private ObjectMapper objectMapper;
 
@@ -33,8 +36,12 @@ public class JsonMessageEncoder extends MessageToByteEncoder<Object> {
      */
     @Override
     protected void encode(ChannelHandlerContext ctx, Object msg, ByteBuf out) throws JsonProcessingException {
-        byte[] bytes = objectMapper.writeValueAsBytes(msg);
-        LOG.debug("Encoded message {} as {} bytes", msg, bytes.length);
+        String className = msg.getClass().getName();
+        String jsonString = objectMapper.writeValueAsString(msg);
+
+        String result = className + " " + jsonString;
+        byte[] bytes = result.getBytes(UTF8_CHARSET);
+        LOG.debug("Encoded message {} of type {} as {} bytes", msg, className, bytes.length);
         out.writeBytes(bytes);
     }
 }
