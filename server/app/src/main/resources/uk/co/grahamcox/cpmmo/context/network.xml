@@ -12,8 +12,8 @@
                     <list>
                         <value>chunkedMessageDecoder</value>
                         <value>jsonMessageDecoder</value>
-                        <value>jsonMessageEncoder</value>
                         <value>chunkedMessageEncoder</value>
+                        <value>jsonMessageEncoder</value>
                         <value>serverChannelHandler</value>
                     </list>
                 </property>
@@ -24,7 +24,11 @@
 
     <bean id="chunkedMessageDecoder" class="uk.co.grahamcox.cpmmo.network.ChunkedMessageDecoder" scope="prototype" />
     <bean id="chunkedMessageEncoder" class="uk.co.grahamcox.cpmmo.network.ChunkedMessageEncoder" scope="prototype" />
-    <bean id="jsonMessageDecoder" class="uk.co.grahamcox.cpmmo.network.JsonMessageDecoder" scope="prototype" />
-    <bean id="jsonMessageEncoder" class="uk.co.grahamcox.cpmmo.network.JsonMessageEncoder" scope="prototype" />
+    <bean id="jsonMessageDecoder" class="uk.co.grahamcox.cpmmo.network.JsonMessageDecoder" scope="prototype">
+        <property name="messagesPackageBase" value="uk.co.grahamcox.cpmmo.network.messages" />
+    </bean>
+    <bean id="jsonMessageEncoder" class="uk.co.grahamcox.cpmmo.network.JsonMessageEncoder" scope="prototype">
+        <property name="messagesPackageBase" value="uk.co.grahamcox.cpmmo.network.messages" />
+    </bean>
     <bean id="serverChannelHandler" class="uk.co.grahamcox.cpmmo.network.ServerHandler" scope="prototype" />
 </beans>

@@ -19,12 +19,22 @@ public class JsonMessageEncoder extends MessageToByteEncoder<Object> {
     public static final Charset UTF8_CHARSET = Charset.forName("UTF-8");
     /** The object mapper to use */
     private ObjectMapper objectMapper;
+    /** The base package to use for messages */
+    private String messagesPackageBase;
 
     /**
      * Construct the encoder
      */
     public JsonMessageEncoder() {
         objectMapper = new ObjectMapper();
+    }
+
+    /**
+     * Set the package base to use for messages
+     * @param messagesPackageBase the package base
+     */
+    public void setMessagesPackageBase(String messagesPackageBase) {
+        this.messagesPackageBase = messagesPackageBase;
     }
 
     /**
@@ -36,7 +46,14 @@ public class JsonMessageEncoder extends MessageToByteEncoder<Object> {
      */
     @Override
     protected void encode(ChannelHandlerContext ctx, Object msg, ByteBuf out) throws JsonProcessingException {
-        String className = msg.getClass().getName();
+        String className;
+
+        Class<?> msgClass = msg.getClass();
+        if (msgClass.getPackage().getName().equals(messagesPackageBase)) {
+            className = msgClass.getSimpleName();
+        } else {
+            className = msgClass.getName();
+        }
         String jsonString;
         try {
             jsonString = objectMapper.writeValueAsString(msg);

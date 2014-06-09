@@ -21,12 +21,21 @@ public class JsonMessageDecoder extends MessageToMessageDecoder<byte[]> {
     public static final Charset UTF8_CHARSET = Charset.forName("UTF-8");
     /** The object mapper to use */
     private ObjectMapper objectMapper;
-
+    /** The base package to use for messages */
+    private String messagesPackageBase;
     /**
      * Construct the decoder
      */
     public JsonMessageDecoder() {
         objectMapper = new ObjectMapper();
+    }
+
+    /**
+     * Set the package base to use for messages
+     * @param messagesPackageBase the package base
+     */
+    public void setMessagesPackageBase(String messagesPackageBase) {
+        this.messagesPackageBase = messagesPackageBase;
     }
 
     /**
@@ -45,6 +54,10 @@ public class JsonMessageDecoder extends MessageToMessageDecoder<byte[]> {
         String[] parts = jsonString.split(" ", 2);
         if (parts.length == 2) {
             String className = parts[0];
+            if (!className.contains(".") && messagesPackageBase != null) {
+                className = messagesPackageBase + "." + className;
+            }
+
             Class cls = Class.forName(className);
             Object value = objectMapper.readValue(parts[1], cls);
             LOG.debug("Decoded {} bytes of type {} as message: {}", msg.length, cls, value);

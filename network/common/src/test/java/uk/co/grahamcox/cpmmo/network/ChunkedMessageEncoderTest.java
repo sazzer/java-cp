@@ -15,11 +15,11 @@ public class ChunkedMessageEncoderTest {
      */
     @Test
     public void test() {
-        byte[] bytes = new byte[]{1, 2, 3, 4, 5, 6, 7};
+        ByteBuf bytes = UnpooledByteBufAllocator.DEFAULT.buffer();
+        bytes.writeBytes(new byte[]{1, 2, 3, 4, 5, 6, 7});
         ChunkedMessageEncoder encoder = new ChunkedMessageEncoder();
 
         ByteBuf byteBuf = UnpooledByteBufAllocator.DEFAULT.buffer();
-
         encoder.encode(null, bytes, byteBuf);
 
         Assert.assertEquals(11, byteBuf.readableBytes());
@@ -35,11 +35,11 @@ public class ChunkedMessageEncoderTest {
      */
     @Test
     public void testLength0() {
-        byte[] bytes = new byte[]{};
+        ByteBuf bytes = UnpooledByteBufAllocator.DEFAULT.buffer();
+        bytes.writeBytes(new byte[]{});
         ChunkedMessageEncoder encoder = new ChunkedMessageEncoder();
 
         ByteBuf byteBuf = UnpooledByteBufAllocator.DEFAULT.buffer();
-
         encoder.encode(null, bytes, byteBuf);
 
         Assert.assertEquals(0, byteBuf.readableBytes());
