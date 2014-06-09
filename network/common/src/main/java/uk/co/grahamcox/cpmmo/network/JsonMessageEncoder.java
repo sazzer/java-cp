@@ -37,7 +37,13 @@ public class JsonMessageEncoder extends MessageToByteEncoder<Object> {
     @Override
     protected void encode(ChannelHandlerContext ctx, Object msg, ByteBuf out) throws JsonProcessingException {
         String className = msg.getClass().getName();
-        String jsonString = objectMapper.writeValueAsString(msg);
+        String jsonString;
+        try {
+            jsonString = objectMapper.writeValueAsString(msg);
+        } catch (Exception e) {
+            LOG.error("Error writing JSON string", e);
+            throw e;
+        }
 
         String result = className + " " + jsonString;
         byte[] bytes = result.getBytes(UTF8_CHARSET);
