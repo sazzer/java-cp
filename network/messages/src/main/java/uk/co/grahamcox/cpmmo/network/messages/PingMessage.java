@@ -13,7 +13,6 @@ package uk.co.grahamcox.cpmmo.network.messages;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.Instant;
 import java.time.ZonedDateTime;
-import java.util.Date;
 
 /**
  * A Ping Message
@@ -25,21 +24,19 @@ public class PingMessage {
     private long timestamp;
 
     /**
-     * Construct the message
-     * @param id the ID of the message
-     * @param now the current time
-     */
-    public PingMessage(int id, ZonedDateTime now) {
-        this.id = id;
-        this.timestamp = now.toInstant().getEpochSecond();
-    }
-
-    /**
      * Get the ID of the message
      * @return the ID
      */
     public int getId() {
         return id;
+    }
+
+    /**
+     * Set the ID
+     * @param id the ID
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 
     /**
@@ -51,11 +48,28 @@ public class PingMessage {
     }
 
     /**
+     * Set the timestamp
+     * @param timestamp the timestamp
+     */
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    /**
      * Get the ping time as a ZonedDateTime
      * @return the ping time
      */
     @JsonIgnore
     public ZonedDateTime getPingTime() {
         return ZonedDateTime.from(Instant.ofEpochSecond(timestamp));
+    }
+
+    /**
+     * Set the ping time as a ZonedDateTime
+     * @param time the ping time
+     */
+    @JsonIgnore
+    public void setPingTime(ZonedDateTime time) {
+        timestamp = time.toInstant().getEpochSecond();
     }
 }

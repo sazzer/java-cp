@@ -23,7 +23,11 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         LOG.debug("Received message: {}", msg);
-        ctx.write(new PongMessage(1, ZonedDateTime.now()));
+        PongMessage pongMessage = new PongMessage();
+        pongMessage.setId(1);
+        pongMessage.setPingTime(ZonedDateTime.now());
+
+        ctx.write(pongMessage);
         ctx.flush();
     }
 }
