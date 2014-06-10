@@ -13,6 +13,7 @@
   <name>Cyberpunk MMO - Game Client</name>
   <modules>
     <module>app</module>
+    <module>cmdline</module>
   </modules>
 </project>
 
