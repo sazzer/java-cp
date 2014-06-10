@@ -5,7 +5,11 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <import resource="network.xml" />
+
+    <bean id="repl" class="uk.co.grahamcox.cpmmo.spring.repl.Repl" />
+
     <bean class="uk.co.grahamcox.cpmmo.CmdClientApp">
         <property name="client" ref="client" />
+        <property name="repl" ref="repl" />
     </bean>
 </beans>

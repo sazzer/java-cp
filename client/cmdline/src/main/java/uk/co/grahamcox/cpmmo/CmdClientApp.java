@@ -12,6 +12,7 @@ package uk.co.grahamcox.cpmmo;
 
 import java.net.ConnectException;
 import uk.co.grahamcox.cpmmo.network.Client;
+import uk.co.grahamcox.cpmmo.spring.repl.Repl;
 
 /**
  * The main app for the client
@@ -19,6 +20,9 @@ import uk.co.grahamcox.cpmmo.network.Client;
 public class CmdClientApp implements MainApp {
     /** The network client */
     private Client client;
+
+    /** The Repl to use */
+    private Repl repl;
 
     /**
      * Set the network client
@@ -29,10 +33,21 @@ public class CmdClientApp implements MainApp {
     }
 
     /**
+     * Set the REPL to use
+     * @param repl the REPL to use
+     */
+    public void setRepl(Repl repl) {
+        this.repl = repl;
+    }
+
+    /**
      * Start running the main client application
      */
     @Override
     public void run() {
+
+        repl.run();
+
         try {
             client.connect("localhost", 12345);
             Thread.sleep(10000);
