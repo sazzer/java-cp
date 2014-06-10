@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="client" class="uk.co.grahamcox.cpmmo.network.Client">
+        <property name="channelInitializer">
+            <bean class="uk.co.grahamcox.cpmmo.network.SpringChannelInitializer">
+                <property name="handlerBeanNames">
+                    <list>
+                        <value>chunkedMessageDecoder</value>
+                        <value>jsonMessageDecoder</value>
+                        <value>chunkedMessageEncoder</value>
+                        <value>jsonMessageEncoder</value>
+                    </list>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+
+    <bean id="chunkedMessageDecoder" class="uk.co.grahamcox.cpmmo.network.ChunkedMessageDecoder" scope="prototype" />
+    <bean id="chunkedMessageEncoder" class="uk.co.grahamcox.cpmmo.network.ChunkedMessageEncoder" scope="prototype" />
+    <bean id="jsonMessageDecoder" class="uk.co.grahamcox.cpmmo.network.JsonMessageDecoder" scope="prototype">
+        <property name="messagesPackageBase" value="uk.co.grahamcox.cpmmo.network.messages" />
+    </bean>
+    <bean id="jsonMessageEncoder" class="uk.co.grahamcox.cpmmo.network.JsonMessageEncoder" scope="prototype">
+        <property name="messagesPackageBase" value="uk.co.grahamcox.cpmmo.network.messages" />
+    </bean>
+</beans>

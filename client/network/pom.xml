@@ -6,15 +6,18 @@
   <parent>
     <groupId>uk.co.grahamcox.cpmmo</groupId>
     <version>1.0-SNAPSHOT</version>
-    <artifactId>cpmmo</artifactId>
+    <artifactId>cpmmo-client</artifactId>
   </parent>
-  <artifactId>cpmmo-client</artifactId>
-  <packaging>pom</packaging>
-  <name>Cyberpunk MMO - Game Client</name>
-  <modules>
-    <module>network</module>
-    <module>app</module>
-    <module>cmdline</module>
-  </modules>
+  <artifactId>cpmmo-client-network</artifactId>
+  <packaging>jar</packaging>
+  <name>Cyberpunk MMO - Client Networking</name>
+  <dependencies>
+      <dependency>
+          <groupId>${project.groupId}</groupId>
+          <artifactId>cpmmo-network-common</artifactId>
+          <version>${project.version}</version>
+      </dependency>
+  </dependencies>
 </project>
+
 

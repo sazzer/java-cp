@@ -10,15 +10,37 @@
  ******************************************************************************************************************/
 package uk.co.grahamcox.cpmmo;
 
+import java.net.ConnectException;
+import uk.co.grahamcox.cpmmo.network.Client;
+
 /**
  * The main app for the client
  */
 public class CmdClientApp implements MainApp {
+    /** The network client */
+    private Client client;
+
+    /**
+     * Set the network client
+     * @param client the network client
+     */
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
     /**
      * Start running the main client application
      */
     @Override
     public void run() {
-
+        try {
+            client.connect("localhost", 12345);
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ConnectException e) {
+            e.printStackTrace();
+        }
+        client.stop();
     }
 }

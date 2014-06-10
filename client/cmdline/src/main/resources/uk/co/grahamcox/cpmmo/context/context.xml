@@ -4,5 +4,8 @@
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean class="uk.co.grahamcox.cpmmo.CmdClientApp" />
+    <import resource="network.xml" />
+    <bean class="uk.co.grahamcox.cpmmo.CmdClientApp">
+        <property name="client" ref="client" />
+    </bean>
 </beans>
