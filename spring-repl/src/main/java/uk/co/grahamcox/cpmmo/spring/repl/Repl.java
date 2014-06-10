@@ -10,6 +10,9 @@
  ******************************************************************************************************************/
 package uk.co.grahamcox.cpmmo.spring.repl;
 
+import java.io.IOException;
+import java.util.Optional;
+import jline.console.ConsoleReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -46,6 +49,35 @@ public class Repl implements ApplicationContextAware, Runnable {
     @Override
     public void run() {
         LOG.info("Starting Repl");
+        ConsoleReader consoleReader = createConsoleReader();
+
+        boolean running = true;
+        while (running) {
+            try {
+                String line = consoleReader.readLine("> ");
+                if ("exit".equals(line) || "quit".equals(line)) {
+                    running = false;
+                }
+            } catch (IOException e) {
+                LOG.error("Error reading command", e);
+                running = false;
+            }
+        }
+    }
+
+    /**
+     * Create the console reader to use
+     * @return the console reader
+     */
+    private ConsoleReader createConsoleReader() {
+        ConsoleReader consoleReader;
+        try {
+            consoleReader = new ConsoleReader();
+        } catch (IOException e) {
+            LOG.error("Error creating the console reader", e);
+            throw new RuntimeException(e);
+        }
+        return consoleReader;
     }
 
     /**
