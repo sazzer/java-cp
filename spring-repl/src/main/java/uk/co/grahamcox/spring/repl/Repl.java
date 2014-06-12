@@ -8,10 +8,10 @@
  *  consent of OCLC, Inc.  Duplication of any portion of these materials shall include this notice.
  *
  ******************************************************************************************************************/
-package uk.co.grahamcox.cpmmo.spring.repl;
+package uk.co.grahamcox.spring.repl;
 
 import java.io.IOException;
-import java.util.Optional;
+
 import jline.console.ConsoleReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

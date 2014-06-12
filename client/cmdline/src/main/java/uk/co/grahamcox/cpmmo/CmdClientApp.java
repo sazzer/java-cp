@@ -12,7 +12,7 @@ package uk.co.grahamcox.cpmmo;
 
 import java.net.ConnectException;
 import uk.co.grahamcox.cpmmo.network.Client;
-import uk.co.grahamcox.cpmmo.spring.repl.Repl;
+import uk.co.grahamcox.spring.repl.Repl;
 
 /**
  * The main app for the client

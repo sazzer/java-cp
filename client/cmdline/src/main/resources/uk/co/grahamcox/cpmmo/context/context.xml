@@ -6,7 +6,7 @@
 
     <import resource="network.xml" />
 
-    <bean id="repl" class="uk.co.grahamcox.cpmmo.spring.repl.Repl" />
+    <bean id="repl" class="uk.co.grahamcox.spring.repl.Repl" />
 
     <bean class="uk.co.grahamcox.cpmmo.CmdClientApp">
         <property name="client" ref="client" />
