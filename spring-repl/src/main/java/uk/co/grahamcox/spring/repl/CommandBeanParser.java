@@ -1,7 +1,8 @@
 package uk.co.grahamcox.spring.repl;
 
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
+import java.util.stream.Collectors;
 
 /**
  * Mechanism to parse Command Definitions out of a Bean
@@ -13,6 +14,11 @@ public class CommandBeanParser {
      * @return the parsed definitions
      */
     public Collection<CommandDefinition> parse(Object bean) {
-        return Collections.emptyList();
+        return Arrays.asList(bean.getClass().getMethods()).stream()
+            .filter(m -> m.isAnnotationPresent(Command.class))
+            .map(m -> {
+                return new CommandDefinition();
+            })
+            .collect(Collectors.toList());
     }
 }

@@ -15,10 +15,34 @@ public class CommandBeanParserTest {
     @Test
     public void testNoCommands() {
         CommandBeanParser commandBeanParser = new CommandBeanParser();
-        NoCommands noCommands = new NoCommands();
+        Object cmd = new NoCommands();
 
-        Collection<CommandDefinition> commandDefinitions = commandBeanParser.parse(noCommands);
+        Collection<CommandDefinition> commandDefinitions = commandBeanParser.parse(cmd);
         Assert.assertTrue(commandDefinitions.isEmpty());
+    }
+
+    /**
+     * Test parsing an object that has a command with no args
+     */
+    @Test
+    public void testNoArgs() {
+        CommandBeanParser commandBeanParser = new CommandBeanParser();
+        Object cmd = new NoArgsCommands();
+
+        Collection<CommandDefinition> commandDefinitions = commandBeanParser.parse(cmd);
+        Assert.assertEquals(1, commandDefinitions.size());
+    }
+
+    /**
+     * Test parsing an object that a command with arguments
+     */
+    @Test
+    public void testArgs() {
+        CommandBeanParser commandBeanParser = new CommandBeanParser();
+        Object cmd = new ArgsCommands();
+
+        Collection<CommandDefinition> commandDefinitions = commandBeanParser.parse(cmd);
+        Assert.assertEquals(1, commandDefinitions.size());
     }
 
     /**
